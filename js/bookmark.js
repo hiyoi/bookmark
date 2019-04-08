@@ -482,7 +482,7 @@ window.bookmarklet({
 function fullFunc(opts){
  
 	// User doesn't have to set jquery, we have a default.
-	opts.jqpath = opts.jqpath || "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js";
+	opts.jqpath = opts.jqpath || "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js";
  
 	function getJS(jsfiles){
  
