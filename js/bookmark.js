@@ -7,12 +7,8 @@ function getSelText() {
 	} else if (document.selection) {
 		s = document.selection.createRange().text;
 	}
-	//alert(s);
-	//alert( pinyin(s , true));
-	//alert(pinyin(s, true, ""));
-	//return trimAll(s);
+
 	return s;
-//  return
 }
 
 function addCommas(nStr)
@@ -30,33 +26,25 @@ function addCommas(nStr)
  function CheckDomainAndKeyword(keyword, domain){
 			getGoogleSuggest(keyword);
 			getBaiduSuggest(keyword);
-			getGoogleImages(keyword);
-			getWhoisInfo(domain);
-			getOVT(keyword, "Keyword", "http://cloudwidgets.googlecode.com/svn/trunk/OVTWords.dat");
+			// getGoogleImages(keyword);
+			// getWhoisInfo(domain);
+			// getOVT(keyword, "Keyword", "http://cloudwidgets.googlecode.com/svn/trunk/OVTWords.dat");
  }
 
 function getGoogleSuggest( genre) {
   
 	  $.ajax({
-		url: 'http://query.yahooapis.com/v1/public/yql',
-		dataType: 'JSONP',
-		data: {
-			format: 'json',
-			q: 'select * from xml where url="https://google.com/complete/search?output=toolbar&q=' + genre + '"'
-		},
+		url: 'http://suggestqueries.google.com/complete/search?output=youtube&q='+genre,
+		dataType:'JSONP',
+		jsonp:'callback',
 		success: function(data) {
 			
-			var gSuggestions = data['query']['results']['toplevel']['CompleteSuggestion'];
-			gSuggestions.sort(function(a, b){
-				return a- b
-			})
-			
+			var gSuggestions = data[1];
 
 			$("#GSList").empty();
 
 			for (var i = gSuggestions.length - 1; i >= 0; --i) {
-				$("<li><a TARGET='_blank' href='https://www.google.com/search?q=" + gSuggestions[i]['suggestion']['data'] + "'>" + gSuggestions[i]['suggestion']['data'] + "</a></li>").appendTo("#GSList");
-
+				$("<li><a TARGET='_blank' href='https://www.google.com/search?q=" + gSuggestions[i][0] + "'>" + gSuggestions[i][0] + "</a></li>").appendTo("#GSList");
 
 			}
 
@@ -65,13 +53,10 @@ function getGoogleSuggest( genre) {
   
 }
 
-
-
 function getBaiduSuggest( genre) {
   $.ajax({
 	dataType: "jsonp",
 	url: "https://www.baidu.com/sugrec?prod=pc&wd=" + genre ,
-	//"&cb=process",
 	jsonp: "cb",
 	success: function( data ) {
 	  
@@ -79,7 +64,7 @@ function getBaiduSuggest( genre) {
 	   $( "#BSList" ).empty();
 		
 	   for ( var i=bSuggestions.length-1; i>=0; --i ){
-		 $("<li><a TARGET='_blank' href='http://www.baidu.com/s?wd=" + bSuggestions[i].q +"'>" + bSuggestions[i].q + "(" + pinyin(bSuggestions[i].q , true, "") + ")</a></li>").appendTo( "#BSList" );
+		 $("<li><a TARGET='_blank' href='http://www.baidu.com/s?wd=" + bSuggestions[i].q +"'>" + bSuggestions[i].q  + "</a></li>").appendTo( "#BSList" );
 		
 	   }
 	}
@@ -176,10 +161,9 @@ window.bookmarklet = function(opts){fullFunc(opts)};
 // These are the styles, scripts and callbacks we include in our bookmarklet:
 window.bookmarklet({
  
-	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css'],
-	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js','https://hiyoi.github.io/bookmark/js/pinyin.js','https://hiyoi.github.io/bookmark/js/pinyin.dict.src.js'],    
- 
-	//  jqpath : 'myCustomjQueryPath.js', <-- option to include your own jquery
+	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'],
+	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'], 
+	jqpath : 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js',
 	ready : function(){
 	var subdomain = location.hostname.substring(0,location.hostname.indexOf("."));
 	//alert(location.hostname);
@@ -200,19 +184,11 @@ window.bookmarklet({
 	var archiveOrgID=aRandomID + "archiveOrgID";
 	
 	var openAllID=aRandomID + "openAll";
-	
-//http://www.yougetsignal.com/tools/web-sites-on-web-server/php/get-web-sites-on-web-server-json-data.php?remoteAddress=www.digg.com    
-//http://www.yougetsignal.com/tools/web-sites-on-web-server/js/tools.js
-//http://www.yougetsignal.com/tools/web-sites-on-web-server/?remoteAddress=dig.com
 
 		var s = "";
 		s = getSelText();
 		s=new String(s);
 		s=trimAll(s);
-		//alert(s);
-		//if (s == "") {
-		//  var s = prompt("Forget something?");
-		//}
 		
 		var domain="";
 		var keyword="";
@@ -241,23 +217,6 @@ window.bookmarklet({
 		if (keyword==='www') {
 			keyword=sArr[1];
 		}
-		
-		
-		//alert(domain);
-		//alert(keyword);
-		
-		
-		//if (s==="") 
-		//  {domain=location.hostname;}
-		//else if (s.indexOf(".")>0) 
-		//  {domain=s;}
-		//else 
-		//  {domain=s+".com";}
-
-		
-		//var tempIndexEnd=domain.lastIndexOf(".");
-		//var tempIndexStart=domain.lastIndexOf(".",tempIndexEnd-1);
-		//keyword=domain.substring(tempIndexStart+1,tempIndexEnd);
 		
 
 		
@@ -330,7 +289,7 @@ window.bookmarklet({
 			<div id='ovttarget'>Overture Data<br/></div>\
 			<div id='otherLinks'>Other Links<br/><br/>\
 			<button class='" +buttonClass+ "' valtype='n' url='http://www.ultimatedomains.com/extract-domains.php'>Extract Domains</button>\
-			<button class='" +buttonClass+ "' valtype='n' url='http://www.google.com/trends/hottrends?'>hot trends</button>\
+			<button class='" +buttonClass+ "' valtype='n' url='https://www.google.com/trends/hottrends?'>hot trends</button>\
 			<button class='" +buttonClass+ "' valtype='n' url='http://namebio.com/'>namebio</button>\
 			<button class='" +buttonClass+ "' valtype='n' url='http://www.popuri.us/'>url popularity</button>\
 			<button class='" +buttonClass+ "' valtype='n' url='http://s3.amazonaws.com/alexa-static/top-1m.csv.zip'>http://s3.amazonaws.com/alexa-static/top-1m.csv.zip</button>\
@@ -338,29 +297,6 @@ window.bookmarklet({
 		</div>\
 		</div>");
 		
-		/*
-			$('#'+reverseIPID).button({ icons: {primary:'ui-icon-zoomin'} }).click(function() {
-			 
-			var requestUrl = "http://www.yougetsignal.com/tools/web-sites-on-web-server/?remoteAddress=" + $('#'+domainID).val();
-				//alert(requestUrl);
-				window.open(requestUrl);
-				//window.open(requestUrl,'Reverse Domain IP lookup','width=800,height=600')
-				}
-			
-			);
-			
-			//$('#'+whoisID).button({ icons: {primary:'ui-icon-help'} }).click(function() {
-			
-			
-			$('#'+whoisID).button({ icons: {primary:$(this).attr('icon')} }).click(function() {         
-			var requestUrl = "http://www.dynadot.com/domain/whois.html?domain=" + $('#'+domainID).val();
-				//alert(requestUrl);
-				window.open(requestUrl);
-				//window.open(requestUrl,'Reverse Domain IP lookup','width=800,height=600')
-				}
-			
-			);
-			*/
 			$('#'+keywordID).change(function() {
 			  var domain=$('#'+keywordID).val()+".com";
 			  $('#'+domainID).val(domain);
@@ -406,22 +342,9 @@ window.bookmarklet({
 		
 			  
 				window.open(requestUrl);
-				//window.open(requestUrl,'Reverse Domain IP lookup','width=800,height=600')
 				}
 			
 			);
-			
-			//added icons
-			// $('#'+whoisID).button({ icons: {primary:'ui-icon-help'} });
-			// $('#'+reverseIPID).button({ icons: {primary:'ui-icon-zoomin'} });
-			
-			
-			// $('#'+openAllID).button({ icons: {primary:'ui-icon-zoomin'} }).click(function() {
-			// 	$('.'+buttonClass).click();
-			// 	return false;
-			// 	}
-			
-			// );
 			
 			
 			
@@ -465,10 +388,6 @@ window.bookmarklet({
 				
 		   $('#'+dialogID).dialog('open');  
 		 
-		  
-		  
-	
-	
  
 		}
  
@@ -477,7 +396,7 @@ window.bookmarklet({
 function fullFunc(opts){
  
 	// User doesn't have to set jquery, we have a default.
-	opts.jqpath = opts.jqpath || "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js";
+	opts.jqpath = opts.jqpath || "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js";
  
 	function getJS(jsfiles){
  
@@ -528,14 +447,4 @@ function fullFunc(opts){
  
 	getjQuery(opts.jqpath); // kick it off
  
-}; // end of bookmarklet();
-
-// resource: 
-// http://www.wait-till-i.com/2010/01/10/loading-external-content-with-ajax-using-jquery-and-yql/
-//http://www.yqlblog.net/blog/2009/06/02/getting-stock-information-with-yql-and-open-data-tables/
-//http://developer.yahoo.com/blogs/ydn/posts/2010/07/world_cup_yql_analysis/
-//select * from csv where url="http://cloudwidgets.googlecode.com/svn/trunk/OVTWords.dat"  and columns="Number,Keyword" and Keyword="aaa"
-//there is maximum limit on how many rows a csv file can have?
-//select * from csv where url="http://cloudwidgets.googlecode.com/svn/trunk/OVTFeb2007.dat"  and columns="Keyword,Number" and Keyword="00.com"
-//select * from csv where url="http://cloudwidgets.googlecode.com/svn/trunk/OVTFeb2007-2.dat"  and columns="Keyword,Number" and Keyword ="0.com"
-
+}; 
