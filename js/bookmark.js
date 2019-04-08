@@ -34,7 +34,7 @@ function addCommas(nStr)
 function getGoogleSuggest( genre) {
   
 	  $.ajax({
-		url: 'http://suggestqueries.google.com/complete/search?output=youtube&q='+genre,
+		url: 'https://suggestqueries.google.com/complete/search?output=youtube&q='+genre,
 		dataType:'JSONP',
 		jsonp:'callback',
 		success: function(data) {
