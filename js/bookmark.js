@@ -83,7 +83,7 @@ function getBaiduSuggest( genre) {
 	 // alert(data[0]);
 	  //alert(data[1]);
 	  
-	   var bSuggestions = data.s;
+	   var bSuggestions = data.g;
 	   //alert(bSuggestions);
 	   $( "#BSList" ).empty();
 	   
@@ -91,7 +91,7 @@ function getBaiduSuggest( genre) {
 		
 	   for ( var i=bSuggestions.length-1; i>=0; --i ){
 		 //alert(gSuggestions[i][0] +gSuggestions[i][2]);
-		 $("<li><a TARGET='_blank' href='http://www.baidu.com/s?wd=" + bSuggestions[i] +"'>" + bSuggestions[i] + "(" + pinyin(bSuggestions[i] , true, "") + ")</a></li>").appendTo( "#BSList" );
+		 $("<li><a TARGET='_blank' href='http://www.baidu.com/s?wd=" + bSuggestions[i].q +"'>" + bSuggestions[i].q + "(" + pinyin(bSuggestions[i].q , true, "") + ")</a></li>").appendTo( "#BSList" );
 		 //$.tmpl( tmpl, bSuggestions[i] ).appendTo( "#BSList" );
 		
 	   }
