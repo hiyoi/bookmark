@@ -36,11 +36,6 @@ function addCommas(nStr)
  }
 
 function getGoogleSuggest( genre) {
-  //alert("google suggest")
-  //http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&jsonp=suggestResponse&q=
-  //
-  //"http://suggestqueries.google.com/complete/search?output=firefox&client=firefox&hl=en-US&hjson=t&jsonp=suggestResponse&q=abc
-  //http://jsfiddle.net/jsfiddle988/7vmb4/
   
 	  $.ajax({
 		url: 'http://query.yahooapis.com/v1/public/yql',
@@ -181,8 +176,8 @@ window.bookmarklet = function(opts){fullFunc(opts)};
 // These are the styles, scripts and callbacks we include in our bookmarklet:
 window.bookmarklet({
  
-	css : ['https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css'],
-	js  : ['https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'],    
+	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'],
+	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'],    
  
 	//  jqpath : 'myCustomjQueryPath.js', <-- option to include your own jquery
 	ready : function(){
@@ -482,7 +477,7 @@ window.bookmarklet({
 function fullFunc(opts){
  
 	// User doesn't have to set jquery, we have a default.
-	opts.jqpath = opts.jqpath || "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js";
+	opts.jqpath = opts.jqpath || "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js";
  
 	function getJS(jsfiles){
  
