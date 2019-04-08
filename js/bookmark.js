@@ -422,7 +422,7 @@ function fullFunc(opts){
 			$('<link>').attr({
 					href: val,
 					rel: 'stylesheet'
-				}).appendTo('head');
+				}).appendTo('body');
 		});
 	}
  
