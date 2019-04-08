@@ -161,9 +161,9 @@ window.bookmarklet = function(opts){fullFunc(opts)};
 // These are the styles, scripts and callbacks we include in our bookmarklet:
 window.bookmarklet({
  
-	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'],
-	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'], 
-	jqpath : 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js',
+	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.css'],
+	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'], 
+	jqpath : 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/external/jquery/jquery.min.js',
 	ready : function(){
 	var subdomain = location.hostname.substring(0,location.hostname.indexOf("."));
 	//alert(location.hostname);
@@ -396,7 +396,7 @@ window.bookmarklet({
 function fullFunc(opts){
  
 	// User doesn't have to set jquery, we have a default.
-	opts.jqpath = opts.jqpath || "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js";
+	opts.jqpath = opts.jqpath || "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/external/jquery/jquery.min.js";
  
 	function getJS(jsfiles){
  
@@ -407,7 +407,7 @@ function fullFunc(opts){
 		}
  
 		// Load the first js file in the array
-		$.getScript(jsfiles[0],  function(){ 
+		window.jQuery.getScript(jsfiles[0],  function(){ 
  
 			// When it's done loading, remove it from the queue and call the function again    
 			getJS(jsfiles.slice(1));
@@ -430,9 +430,9 @@ function fullFunc(opts){
  
 		// Create jQuery script element
 		var fileref = document.createElement('script')
-		fileref.type = 'text/javascript';
+		fileref.async = 1;
 		fileref.src =  filename;
- 
+		document.body.appendChild(fileref);
 		// Once loaded, trigger other scripts and styles
 		fileref.onload = function(){
  
@@ -440,8 +440,6 @@ function fullFunc(opts){
 			getJS(opts.js); // load JS files
  
 		};
- 
-		document.body.appendChild(fileref);
 	}
 
  
