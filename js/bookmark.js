@@ -176,8 +176,8 @@ window.bookmarklet = function(opts){fullFunc(opts)};
 // These are the styles, scripts and callbacks we include in our bookmarklet:
 window.bookmarklet({
  
-	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'],
-	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js','https://hiyoi.github.io/bookmark/js/pinyin.js','https://hiyoi.github.io/bookmark/js/pinyin.dict.src.js'],    
+	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css'],
+	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js','https://hiyoi.github.io/bookmark/js/pinyin.js','https://hiyoi.github.io/bookmark/js/pinyin.dict.src.js'],    
  
 	//  jqpath : 'myCustomjQueryPath.js', <-- option to include your own jquery
 	ready : function(){
@@ -477,7 +477,7 @@ window.bookmarklet({
 function fullFunc(opts){
  
 	// User doesn't have to set jquery, we have a default.
-	opts.jqpath = opts.jqpath || "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js";
+	opts.jqpath = opts.jqpath || "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js";
  
 	function getJS(jsfiles){
  
