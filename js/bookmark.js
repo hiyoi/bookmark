@@ -72,7 +72,7 @@ function getBaiduSuggest( genre) {
 }
 
 function getGoogleImages(genre) {
-    ajaxUrl = "http://api.ababeen.com/api/images.php?q=" + genre + "&count=10&preview=true"
+    ajaxUrl = "https://api.ababeen.com/api/images.php?q=" + genre + "&count=10&preview=true"
     $.ajax({
         url: ajaxUrl,
         type: "GET",
