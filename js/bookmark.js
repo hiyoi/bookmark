@@ -177,7 +177,7 @@ window.bookmarklet = function(opts){fullFunc(opts)};
 window.bookmarklet({
  
 	css : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'],
-	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'],    
+	js  : ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js','https://hiyoi.github.io/bookmark/js/pinyin.js','https://hiyoi.github.io/bookmark/js/pinyin.dict.src.js'],    
  
 	//  jqpath : 'myCustomjQueryPath.js', <-- option to include your own jquery
 	ready : function(){
