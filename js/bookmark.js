@@ -79,20 +79,12 @@ function getBaiduSuggest( genre) {
 	//"&cb=process",
 	jsonp: "cb",
 	success: function( data ) {
-	  /* Get the movies array from the data */
-	 // alert(data[0]);
-	  //alert(data[1]);
 	  
 	   var bSuggestions = data.g;
-	   //alert(bSuggestions);
 	   $( "#BSList" ).empty();
-	   
-		//var tmpl = '<li><a href="${url}">${getName()}</a> {{if $item.showCities}}(${cityJoin()}){{/if}}</li>'
 		
 	   for ( var i=bSuggestions.length-1; i>=0; --i ){
-		 //alert(gSuggestions[i][0] +gSuggestions[i][2]);
 		 $("<li><a TARGET='_blank' href='http://www.baidu.com/s?wd=" + bSuggestions[i].q +"'>" + bSuggestions[i].q + "(" + pinyin(bSuggestions[i].q , true, "") + ")</a></li>").appendTo( "#BSList" );
-		 //$.tmpl( tmpl, bSuggestions[i] ).appendTo( "#BSList" );
 		
 	   }
 	}
@@ -189,8 +181,8 @@ window.bookmarklet = function(opts){fullFunc(opts)};
 // These are the styles, scripts and callbacks we include in our bookmarklet:
 window.bookmarklet({
  
-	css : ['https://george988.github.com/css/domain.bookmarklet.css','https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css'],
-	js  : ['https://george988.github.com/js/pinyin.dict.src.js','https://george988.github.com/js/pinyin.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'],    
+	css : ['https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css'],
+	js  : ['https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'],    
  
 	//  jqpath : 'myCustomjQueryPath.js', <-- option to include your own jquery
 	ready : function(){
@@ -276,8 +268,8 @@ window.bookmarklet({
 		
 			$("body").append("\
 		<div id='" +dialogID+ "' title='Guta Tools'>\
-        <img src='http://guta.com/images/GUTA-logo-60-2.jpg' style='float:left'/>\
-        <img src='http://guta.com/images/wechat_public.jpg' style='float:right;width:120px;height:auto'/>\
+        <img src='https://www.guta.com/assets/img/GUTA-logo-60-2.jpg' style='float:left'/>\
+        <img src='https://www.guta.com/assets/img/wechat.jpg' style='float:right;width:120px;height:auto'/>\
         <div style='padding-left:250px'>Guta.com a professional domain brokerage firm which is widely considered as the trusted bridge between the Western and Chinese domain communities.</div>\
         <div style='padding-left:250px'>E-Mail:  sales@Guta.com </div>\
         <div style='padding-left:250px'>WeChat Official Account: ---------------------------------------------------------------------------> </div>\
