@@ -26,6 +26,7 @@ function addCommas(nStr)
  function CheckDomainAndKeyword(keyword, domain){
 			getGoogleSuggest(keyword);
 			getBaiduSuggest(keyword);
+			getSogouImages(keyword);
 			// getGoogleImages(keyword);
 			// getWhoisInfo(domain);
 			// getOVT(keyword, "Keyword", "http://cloudwidgets.googlecode.com/svn/trunk/OVTWords.dat");
@@ -73,18 +74,23 @@ function getBaiduSuggest( genre) {
 
 function getGoogleImages(genre) {
     ajaxUrl = "https://api.ababeen.com/api/images.php?q=" + genre + "&count=10&preview=true"
+}
+
+function getSogouImages(query){
+	url = 'https://pic.sogou.com/pics?&start=1&reqType=ajax&query='+query
     $.ajax({
-        url: ajaxUrl,
-        type: "GET",
-        dataType: "json",
+        url: url,
+        dataType: "jsonp",
+        jsonp: "callback",
         success: function(data) {
             $('#image-container').empty();
-            for (var i = 0; i < data.length; i++) {
-                $('#image-container').append('<a TARGET="_blank" href="' + data[i]['originalContextUrl'] + '"><img src="' + data[i]['tbUrl'] + '"></a>' + '<br/>' + data[i]['title'] + '<br/>');
+            for (var i = 0; i < 10; i++) {
+                $('#image-container').append('<a TARGET="_blank" href="' + data.items[i]['ori_pic_url'] + '"><img height=auto width=150 src="' + data.items[i]['thumbUrl'] + '"></a>');
             }
         }
-    });
+    });	
 }
+
 function getOVT(keyword, monthYear, csvURL){
 	  $.getJSON("http://query.yahooapis.com/v1/public/yql?"+
 				"q=select%20*%20from%20csv%20where%20url%3D%22"+
@@ -281,7 +287,7 @@ window.bookmarklet({
 			<div id='tabs-1'><table border='1' style='background:white'><tr>\
 			<th>Google <button class='" +buttonClass+ "' url='https://www.google.com/search?q='>Url</button> <button class='" +buttonClass+ "' url='https://www.google.com/search?q=' valtype='k'>Keyword</button> <button class='" +buttonClass+ "' url='http://www.google.com/search?q=inurl:' valtype='k'>InURL</button> </th>\
 			<th>Baidu <button class='" +buttonClass+ "' url='http://www.baidu.com/s?wd='>Url</button>  <button class='" +buttonClass+ "' url='http://www.baidu.com/s?wd=' valtype='k'>Keyword</button> <button class='" +buttonClass+ "' url='http://www.baidu.com/s?wd=inurl:' valtype='k'>InUrl</button> </th>\
-			<th><button class='" +buttonClass+ "' url='http://images.google.com/search?tbm=isch&q=' valtype='k'>More Google Images</button></th></tr>\
+			<th><button class='" +buttonClass+ "' url='http://images.google.com/search?tbm=isch&q=' valtype='k'>Images</button></th></tr>\
 			<tr><td valign='top'><ul id=\"GSList\"></ul></td><td valign='top'><ul id=\"BSList\"></ul></td><td valign='top'><div id=\"image-container\"></div></td> </tr>\
 			</table>\
 			</div>\
